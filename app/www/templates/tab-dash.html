@@ -1,0 +1,19 @@
+<ion-view view-title="Map">
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-divider">
+        <h3>Current Location</h3>
+      </div>
+      <div class="item item-text-wrap">
+        <p>X = {{location.coords.latitude}}<br/>
+        Y = {{location.coords.longitude}}</p>
+      </div>
+    </div>
+    <button ng-click="updateMap()" class="button button-block button-outline button-positive">
+      Get Current Location</button>
+    <button class="button button-block button-outline button-positive">
+      Add Current Location
+    </button>
+    <div id="googlemap"></div>
+  </ion-content>
+</ion-view>

@@ -5,14 +5,17 @@
         <h3>Current Location</h3>
       </div>
       <div class="item item-text-wrap">
-        <p>X = {{location.coords.latitude}}<br/>
-        Y = {{location.coords.longitude}}</p>
+        <p>Latitude = {{location.coords.latitude}}<br/>
+        Longitude = {{location.coords.longitude}}</p>
       </div>
     </div>
     <button ng-click="updateMap()" class="button button-block button-outline button-positive">
       Get Current Location</button>
     <button class="button button-block button-outline button-positive">
       Add Current Location
+    </button>
+    <button class="button button-block button-outline button-positive">
+      Add Location
     </button>
     <div id="googlemap"></div>
   </ion-content>

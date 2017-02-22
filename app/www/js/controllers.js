@@ -1,8 +1,10 @@
 angular.module('starter.controllers', [])
 
 // wraps call in $ionicPlatform.ready to ensure plugin is ready
-.controller('DashCtrl', function($scope, $ionicPlatform, $cordovaGeolocation) {
+.controller('DashCtrl', function($scope, $ionicPlatform,
+                          $ionicLoading, $cordovaGeolocation) {
   var options = {timeout: 10000, enableHighAccuracy: true};
+
   $ionicPlatform.ready(function() {
     var options = {timeout: 10000, enableHighAccuracy: true};
     $cordovaGeolocation.getCurrentPosition(options).then(function(location) {
@@ -28,8 +30,10 @@ angular.module('starter.controllers', [])
   });
   $scope.updateMap = function() {
     var options = {timeout: 10000, enableHighAccuracy: true};
+    $ionicLoading.show();
     $cordovaGeolocation.getCurrentPosition(options).then(function(location) {
       $scope.location = location; // won't automatically trigger digest
+      $ionicLoading.hide();
       console.log($scope.location.coords.latitude, $scope.location.coords.longitude);
     }, function(error) {
       console.log("Could not get location.")

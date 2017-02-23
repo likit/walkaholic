@@ -1,22 +1,23 @@
 <ion-view view-title="Map">
   <ion-content class="padding">
-    <div class="card">
-      <div class="item item-divider">
-        <h3>Current Location</h3>
-      </div>
-      <div class="item item-text-wrap">
-        <p>Latitude = {{location.coords.latitude}}<br/>
-        Longitude = {{location.coords.longitude}}</p>
+    <div class="row">
+      <div class="list col">
+        <div class="item item-divider">
+          <h2>Khlongmai, Nakhon Pathom</h2>
+        </div>
+        <div class="item item-text-wrap">
+          Coordinates<br/><h2>Lat, Lng = {{markerLoc.lat | number:4}},
+              {{markerLoc.lng | number:4}}</h2>
+        </div>
       </div>
     </div>
-    <button ng-click="updateMap()" class="button button-block button-outline button-positive">
-      Get Current Location</button>
-    <button class="button button-block button-outline button-positive">
-      Add Current Location
-    </button>
-    <button class="button button-block button-outline button-positive">
-      Add Location
-    </button>
+    <div class="row">
+      <div class="button-bar">
+        <button ng-click="updateMap()" class="button button-outline button-positive icon ion-navigate"></button>
+        <button class="button button-outline button-positive icon ion-pin"></button>
+        <button class="button button-outline button-positive icon ion-plus"></button>
+      </div>
+    </div>
     <div id="googlemap"></div>
   </ion-content>
 </ion-view>

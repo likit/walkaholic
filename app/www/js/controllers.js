@@ -4,26 +4,42 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope, $ionicPlatform,
                           $ionicLoading, $cordovaGeolocation) {
   var options = {timeout: 10000, enableHighAccuracy: true};
+  var marker;
+  var markerInfo = new google.maps.InfoWindow({content: 'None'});
 
   $ionicPlatform.ready(function() {
     var options = {timeout: 10000, enableHighAccuracy: true};
+    $ionicLoading.show();
     $cordovaGeolocation.getCurrentPosition(options).then(function(location) {
-      $scope.location = location; // won't automatically trigger digest
-      var latLng = new google.maps.LatLng(location.coords.latitude,
-                                            location.coords.longitude);
+      $scope.markerLoc = {lat: location.coords.latitude, lng: location.coords.longitude}; // won't automatically trigger digest
       var mapOptions = {
-        center: latLng,
+        center: $scope.markerLoc,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
+      $ionicLoading.hide();
       $scope.map = new google.maps.Map(document.getElementById("googlemap"), mapOptions)
+      google.maps.event.addListener($scope.map, 'click', function(event) {
+        $scope.markerLoc.lat = event.latLng.lat();
+        $scope.markerLoc.lng = event.latLng.lng();
+        marker.setPosition($scope.markerLoc);
+        $scope.map.panTo($scope.markerLoc);
+        markerInfo.close();
+      });
       google.maps.event.addListenerOnce($scope.map, 'idle', function() {
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
           map: $scope.map,
           animation: google.maps.Animation.DROP,
-          position: latLng
+          position: $scope.markerLoc,
+          title: 'Current location'
         });
-      });
+        marker.addListener('click', function() {
+          var infoContent = '<h5>Latitude: ' + $scope.markerLoc.lat + '<br/>';
+          infoContent += 'Longitude: ' + $scope.markerLoc.lng + '</h5>';
+          markerInfo.setContent(infoContent);
+          markerInfo.open($scope.map, marker);
+        });
+      })
     }, function(error) {
       console.log("Could not get location.")
     });
@@ -32,9 +48,12 @@ angular.module('starter.controllers', [])
     var options = {timeout: 10000, enableHighAccuracy: true};
     $ionicLoading.show();
     $cordovaGeolocation.getCurrentPosition(options).then(function(location) {
-      $scope.location = location; // won't automatically trigger digest
+      $scope.markerLoc.lat = location.coords.latitude;
+      $scope.markerLoc.lng = location.coords.longitude;
+      $scope.map.panTo($scope.markerLoc);
       $ionicLoading.hide();
-      console.log($scope.location.coords.latitude, $scope.location.coords.longitude);
+      marker.setPosition($scope.markerLoc);
+      marker.setAnimation(google.maps.Animation.DROP);
     }, function(error) {
       console.log("Could not get location.")
     });

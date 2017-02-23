@@ -11,7 +11,8 @@ angular.module('starter.controllers', [])
     var options = {timeout: 10000, enableHighAccuracy: true};
     $ionicLoading.show();
     $cordovaGeolocation.getCurrentPosition(options).then(function(location) {
-      $scope.markerLoc = {lat: location.coords.latitude, lng: location.coords.longitude}; // won't automatically trigger digest
+    $scope.markerLoc = {lat: location.coords.latitude,
+                        lng: location.coords.longitude};
       var mapOptions = {
         center: $scope.markerLoc,
         zoom: 15,
@@ -20,8 +21,10 @@ angular.module('starter.controllers', [])
       $ionicLoading.hide();
       $scope.map = new google.maps.Map(document.getElementById("googlemap"), mapOptions)
       google.maps.event.addListener($scope.map, 'click', function(event) {
-        $scope.markerLoc.lat = event.latLng.lat();
-        $scope.markerLoc.lng = event.latLng.lng();
+        $scope.$apply(function() {
+          $scope.markerLoc.lat = event.latLng.lat();
+          $scope.markerLoc.lng = event.latLng.lng();
+        });
         marker.setPosition($scope.markerLoc);
         $scope.map.panTo($scope.markerLoc);
         markerInfo.close();
@@ -58,6 +61,12 @@ angular.module('starter.controllers', [])
       console.log("Could not get location.")
     });
   }
+})
+
+.controller('PinLocationCtrl', function($scope, $stateParams) {
+  $scope.pinlat = $stateParams.lat;
+  $scope.pinlng = $stateParams.lng;
+  $scope.areaType = 'environment';
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {

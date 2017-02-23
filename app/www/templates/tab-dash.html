@@ -6,15 +6,17 @@
           <h2>Khlongmai, Nakhon Pathom</h2>
         </div>
         <div class="item item-text-wrap">
-          Coordinates<br/><h2>Lat, Lng = {{markerLoc.lat | number:4}},
-              {{markerLoc.lng | number:4}}</h2>
+          Coordinates<br/><h2>Lat, Lng = {{markerLoc.lat | number:6}},
+              {{markerLoc.lng | number:6}}</h2>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="button-bar">
-        <button ng-click="updateMap()" class="button button-outline button-positive icon ion-navigate"></button>
-        <button class="button button-outline button-positive icon ion-pin"></button>
+        <button ng-click="updateMap()"
+          class="button button-outline button-positive icon ion-navigate"></button>
+        <a href="#/tab/pin/{{markerLoc.lat}}/{{markerLoc.lng}}"
+          class="button button-outline button-positive icon ion-pin"></a>
         <button class="button button-outline button-positive icon ion-plus"></button>
       </div>
     </div>

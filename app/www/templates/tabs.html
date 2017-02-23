@@ -6,7 +6,10 @@ navigation history that also transitions its views in and out.
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
   <!-- Dashboard Tab -->
-  <ion-tab title="Map" icon-off="ion-map" icon-on="ion-map" href="#/tab/dash">
+  <ion-tab title="Map" icon-off="ion-map" icon-on="ion-map" href="#/tab/dash" hide-back-button="true">
+    <ion-nav-back-button class="button-clear">
+        <i class="ion-chevron-left"></i> Back
+    </ion-nav-back-button>
     <ion-nav-view name="tab-dash"></ion-nav-view>
   </ion-tab>
 

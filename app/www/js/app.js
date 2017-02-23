@@ -50,7 +50,15 @@ angular.module('starter', ['ionic', 'starter.controllers',
       }
     }
   })
-
+  .state('tab.pin', {
+    url: '/pin/:lat/:lng',
+    views: {
+      'tab-dash': {
+        templateUrl: 'templates/tab-pin.html',
+        controller: 'PinLocationCtrl'
+      }
+    }
+  })
   .state('tab.chats', {
       url: '/chats',
       views: {
